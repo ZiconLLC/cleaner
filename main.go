@@ -16,6 +16,8 @@ import (
 func main() {
 	file := flag.String("import", "~/redis.csv", "a csv file")
 	expFile := flag.String("export", "~/misses.json", "path to export file")
+	existingFile := flag.String("existing", "~/fromS3.txt", "path to s3 dump")
+
 	flag.Parse()
 	csvfile, err := os.Open(*file)
 
@@ -37,7 +39,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	exists := getKeys()
+	exists := getKeys(*existingFile)
 
 	hits := make([]string, 0)
 	misses := make([]string, 0)
