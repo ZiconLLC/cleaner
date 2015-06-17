@@ -64,7 +64,7 @@ func main() {
 				misses = append(misses, uid)
 				//	fmt.Printf("%s miss\n", uid)
 			}
-			if i%100 == 0 {
+			if i%10000 == 0 {
 				stats()
 			}
 		}
