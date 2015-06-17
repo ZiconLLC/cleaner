@@ -93,15 +93,14 @@ func get(path string) (bool, error) {
 
 	rc, _, err := b.GetReader(path, nil)
 	if err != nil {
-		fmt.Println("fail on get")
 		return false, err
 	}
-	defer rc.Close()
-	buffer := make([]byte, 100)
-	_, err = rc.Read(buffer)
-	if err != nil {
-		return false, err
-	}
+	rc.Close()
+	//buffer := make([]byte, 100)
+	//_, err = rc.Read(buffer)
+	//if err != nil {
+	//	return false, err
+	//}
 
 	return true, nil
 }
