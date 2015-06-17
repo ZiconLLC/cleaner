@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 
 	"github.com/aws/aws-sdk-go/service/s3"
 )
@@ -108,6 +109,7 @@ const bucketName = "images.takuapp.com"
 //
 //	return true, nil
 //}
+var wg sync.WaitGroup
 
 func getKeys() map[string]bool {
 	d := downloader{bucket: bucketName, keys: make(map[string]bool)}
@@ -115,8 +117,11 @@ func getKeys() map[string]bool {
 	bn := bucketName
 	prefix := ""
 	client := s3.New(nil)
+	wg.Add(1)
 	params := &s3.ListObjectsInput{Bucket: &bn, Prefix: &prefix}
+
 	client.ListObjectsPages(params, d.eachPage)
+	wg.Wait()
 	return d.keys
 }
 
@@ -125,10 +130,13 @@ type downloader struct {
 	keys        map[string]bool
 }
 
-func (d *downloader) eachPage(page *s3.ListObjectsOutput, more bool) bool {
+func (d *downloader) eachPage(page *s3.ListObjectsOutput, lastPage bool) bool {
 	for _, obj := range page.Contents {
 		d.keys[*obj.Key] = true
 	}
 
+	if lastPage {
+		wg.Done()
+	}
 	return true
 }
