@@ -9,6 +9,7 @@ import (
 
 func main() {
 	file := flag.String("import", "redis.csv", "a csv file")
+	flag.Parse()
 	csvfile, err := os.Open(*file)
 
 	if err != nil {
