@@ -41,7 +41,7 @@ func main() {
 		h := len(hits)
 		m := len(misses)
 		t := h + m
-		r := h / (t * 1.0)
+		r := float64(h) / float64(t)
 		fmt.Printf("hits: %d  misses: %d  total: %d  hit-ratio: %f", h, m, t, r)
 	}
 
