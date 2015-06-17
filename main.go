@@ -42,14 +42,13 @@ func main() {
 		m := len(misses)
 		t := h + m
 		r := h / (t * 1.0)
-		fmt.Printf("hits: %d  misses: %d  total: %d  hit-ratio: %d", h, m, t, r)
+		fmt.Printf("hits: %d  misses: %d  total: %d  hit-ratio: %f", h, m, t, r)
 	}
 
 	// sanity check, display to standard output
 	for _, lines := range rawCSVdata {
 		for i, line := range lines {
 			uid := strings.Split(line, ":")[1]
-			fmt.Printf("%d\n", i)
 			if hit, _ := get(uid); hit {
 				hits = append(hits, uid)
 				//	fmt.Printf("%s hit\n", uid)
@@ -97,7 +96,7 @@ func get(path string) (bool, error) {
 		return false, err
 	}
 	defer rc.Close()
-	buffer := make([]byte, 512)
+	buffer := make([]byte, 100)
 	_, err = rc.Read(buffer)
 	if err != nil {
 		return false, err
