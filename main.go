@@ -134,8 +134,8 @@ func (d *downloader) eachPage(page *s3.ListObjectsOutput, lastPage bool) bool {
 	for _, obj := range page.Contents {
 		d.keys[*obj.Key] = true
 	}
-
-	if lastPage {
+	fmt.Println("page")
+	if !lastPage {
 		wg.Done()
 	}
 	return true
