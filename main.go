@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -33,7 +34,8 @@ func main() {
 	// sanity check, display to standard output
 	for _, lines := range rawCSVdata {
 		for _, line := range lines {
-			fmt.Println(line)
+			uid := strings.Split(line, ":")[1]
+			fmt.Println(uid)
 		}
 	}
 }
