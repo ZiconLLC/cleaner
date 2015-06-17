@@ -42,7 +42,7 @@ func main() {
 		m := len(misses)
 		t := h + m
 		r := float64(h) / float64(t)
-		fmt.Printf("hits: %d  misses: %d  total: %d  hit-ratio: %f", h, m, t, r)
+		fmt.Printf("hits: %d  misses: %d  total: %d  hit-ratio: %f\n", h, m, t, r)
 	}
 
 	// sanity check, display to standard output
